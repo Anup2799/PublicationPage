@@ -1,0 +1,51 @@
+[
+  {
+    "ID": "14112023",
+    "Title": "Title of Patent here can de long -",
+    "Type": "Patent or Whitepaper or Researchpaper or Blog",
+    "ImageURL":"./images/p2.png",
+    "IconURL":"./images/d1.png",
+    "IconURL1":"./images/d2.png",
+    "AboutURL":"./src/pages/About.js",
+    "Brief": "<some brief info - will not be used for now>",
+    "Authors": "<list of comma-separated names of people>",
+    "url": "link to artifact, if available",
+    "tags": "not used for now",
+    "last update": "last update date",
+    "Hideltem": "true"
+  },
+  
+  {
+    "ID": "13112023",
+    "Title": "Title of Blog here can de long -",
+    "Type": "Patent or Whitepaper or Researchpaper or Blog",
+    "ImageURL":"./images/p1.png",
+    "IconURL":"./images/d1.png",
+    "IconURL1":"./images/d2.png",
+    "PageURL":"/pages/whitepapers",
+    "Brief": "some brief info - will not be used for now",
+    "Authors": "list of comma-separated names of people",
+    "url": "link to artifact, if available",
+    "tags": "not used for now",
+    "last update": "last update date",
+    "Hideltem": "true"
+  },
+  {
+    "ID": "12112023",
+    "Title": "Title of Paper here can de long -",
+    "Type": "Patent or Whitepaper or Researchpaper or Blog",
+    "ImageURL":"./images/p3.png",
+    "IconURL":"./images/d1.png",
+    "IconURL1":"./images/d2.png",
+    "PageURL":"/pages/patents",
+    "Brief": "<some brief info - will not be used for now",
+    "Authors": "<list of comma-separated names of people",
+    "url": "link to artifact, if available",
+    "tags": "not used for now",
+    "last update": "last update date",
+    "Hideltem": "true"
+  }
+]  
+  
+
+ 
