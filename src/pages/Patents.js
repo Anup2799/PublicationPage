@@ -10,12 +10,12 @@ import {
 } from "@material-ui/core";
 import Footer from "../components/Layout/Footer";
 import Layout from "../components/Layout/Layout";
-
+ 
 function Patents() {
   const navigate = useNavigate();
   const [cardsData, setCardsData] = useState([]);
   const [patentCount, setPatentCount] = useState(0);
-
+ 
   useEffect(() => {
     fetch("/data/Publication.json") // Change the file path to your actual file path
       .then((response) => response.json())
@@ -27,7 +27,7 @@ function Patents() {
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
+ 
   const cardStyles = {
     borderRadius: "10px",
     overflow: "hidden",
@@ -36,13 +36,13 @@ function Patents() {
     transition: "transform 0.2s",
     cursor: "pointer",
   };
-
+ 
   const cardImageStyles = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
   };
-
+ 
   const cardTitleStyles = {
     fontSize: "25px",
     fontWeight: "bold",
@@ -50,7 +50,7 @@ function Patents() {
     textAlign: "center",
     color: "#000",
   };
-
+ 
   const headingStyles = {
     fontSize: "24px",
     fontWeight: "bold",
@@ -58,13 +58,13 @@ function Patents() {
     color: "#000",
     marginTop: "20px",
   };
-
+ 
   const iconStyles = {
     width: "40px",
     height: "40px",
     cursor: "pointer",
   };
-
+ 
   const aboutButtonStyles = {
     backgroundColor: "#000",
     color: "#fff",
@@ -76,7 +76,7 @@ function Patents() {
     marginLeft: "10px",
     fontWeight: "bold",
   };
-
+ 
   const gridContainerStyles = {
     maxWidth: "1200px",
     margin: "0 auto",
@@ -84,18 +84,11 @@ function Patents() {
     display: "flex",
     justifyContent: "center",
   };
-
+ 
   const cardContainerStyles = {
     minHeight: "400px",
   };
-
-  const getCardColor = (title) => {
-    if (title.startsWith("Patent-")) {
-      return { backgroundColor: "#64b5f6" };
-    }
-    return {};
-  };
-
+ 
   return (
     <Layout>
       <div style={{ minHeight: "100vh", padding: "0 20px" }}>
@@ -109,7 +102,6 @@ function Patents() {
                 style={{
                   ...cardStyles,
                   ...cardContainerStyles,
-                  ...getCardColor(card.Title),
                 }}
                 onMouseEnter={() => {
                   document.querySelector(`#card-${index}`).style.transform =
@@ -162,5 +154,5 @@ function Patents() {
     </Layout>
   );
 }
-
+ 
 export default Patents;

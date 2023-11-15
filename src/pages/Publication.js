@@ -10,18 +10,18 @@ import {
 } from "@material-ui/core";
 import Footer from "../components/Layout/Footer";
 import Layout from "../components/Layout/Layout";
-
+ 
 function Squarecard() {
   const navigate = useNavigate();
   const [cardsData, setCardsData] = useState([]);
-
+ 
   useEffect(() => {
     fetch("/data/Publication.json")
       .then((response) => response.json())
       .then((data) => setCardsData(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
+ 
   const cardStyles = {
     borderRadius: "10px",
     overflow: "hidden",
@@ -30,13 +30,13 @@ function Squarecard() {
     transition: "transform 0.2s",
     cursor: "pointer",
   };
-
+ 
   const cardImageStyles = {
     width: "100%",
     height: "auto",
     objectFit: "cover",
   };
-
+ 
   const cardTitleStyles = {
     fontSize: "25px",
     fontWeight: "bold",
@@ -44,13 +44,13 @@ function Squarecard() {
     textAlign: "center",
     color: "#000", // Change color to black
   };
-
+ 
   const iconStyles = {
     width: "40px",
     height: "40px",
     cursor: "pointer",
   };
-
+ 
   const aboutButtonStyles = {
     backgroundColor: "#000", // Black background color
     color: "#fff", // White text color
@@ -62,7 +62,7 @@ function Squarecard() {
     marginLeft: "10px",
     fontWeight: "bold",
   };
-
+ 
   const gridContainerStyles = {
     maxWidth: "1200px",
     margin: "0 auto",
@@ -70,24 +70,11 @@ function Squarecard() {
     display: "flex",
     justifyContent: "center",
   };
-
+ 
   const cardContainerStyles = {
     minHeight: "400px",
   };
-
-  const getCardColor = (title) => {
-    switch (true) {
-      case title.startsWith("Blog-"):
-        return { backgroundColor: "#ef9a9a" };
-      case title.startsWith("Patent-"):
-        return { backgroundColor: "#64b5f6" };
-      case title.startsWith("Whitepaper-"):
-        return { backgroundColor: "#7986cb" };
-      default:
-        return {};
-    }
-  };
-
+ 
   return (
     <Layout>
       <div style={{ minHeight: "100vh", padding: "0 20px" }}>
@@ -98,7 +85,7 @@ function Squarecard() {
                 style={{
                   ...cardStyles,
                   ...cardContainerStyles,
-                  ...getCardColor(card.Title),
+                  // Remove the following line for custom card color
                 }}
                 onMouseEnter={() => {
                   document.querySelector(`#card-${index}`).style.transform =
@@ -164,5 +151,5 @@ function Squarecard() {
     </Layout>
   );
 }
-
+ 
 export default Squarecard;
