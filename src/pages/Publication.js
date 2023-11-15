@@ -38,19 +38,11 @@ function Squarecard() {
   };
 
   const cardTitleStyles = {
-    fontSize: "18px",
+    fontSize: "25px",
     fontWeight: "bold",
     margin: "10px 0",
-    textAlign: "left",
-    color: "#333",
-  };
-
-  const cardTextStyles = {
-    fontSize: "16px",
-    fontFamily: "Arial, sans-serif",
-    color: "#555",
-    margin: "10px 0",
-    textAlign: "left",
+    textAlign: "center",
+    color: "#000", // Change color to black
   };
 
   const iconStyles = {
@@ -60,14 +52,15 @@ function Squarecard() {
   };
 
   const aboutButtonStyles = {
-    backgroundColor: "#007BFF",
-    color: "#fff",
+    backgroundColor: "#000", // Black background color
+    color: "#fff", // White text color
     padding: "10px 15px",
     borderRadius: "5px",
     cursor: "pointer",
     textDecoration: "none",
     display: "inline-block",
     marginLeft: "10px",
+    fontWeight: "bold",
   };
 
   const gridContainerStyles = {
@@ -75,11 +68,24 @@ function Squarecard() {
     margin: "0 auto",
     padding: "20px",
     display: "flex",
-    justifyContent: "center", // Center the grid horizontally
+    justifyContent: "center",
   };
 
   const cardContainerStyles = {
-    minHeight: "400px", // Set a fixed height for cards
+    minHeight: "400px",
+  };
+
+  const getCardColor = (title) => {
+    switch (true) {
+      case title.startsWith("Blog-"):
+        return { backgroundColor: "#ef9a9a" };
+      case title.startsWith("Patent-"):
+        return { backgroundColor: "#64b5f6" };
+      case title.startsWith("Whitepaper-"):
+        return { backgroundColor: "#7986cb" };
+      default:
+        return {};
+    }
   };
 
   return (
@@ -89,7 +95,11 @@ function Squarecard() {
           {cardsData.map((card, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card
-                style={{ ...cardStyles, ...cardContainerStyles }}
+                style={{
+                  ...cardStyles,
+                  ...cardContainerStyles,
+                  ...getCardColor(card.Title),
+                }}
                 onMouseEnter={() => {
                   document.querySelector(`#card-${index}`).style.transform =
                     "scale(1.05)";
@@ -99,7 +109,6 @@ function Squarecard() {
                     "scale(1)";
                 }}
                 id={`card-${index}`}
-                onClick={() => navigate(card.PageURL)}
               >
                 <CardMedia
                   component="img"
@@ -111,9 +120,6 @@ function Squarecard() {
                   <Typography variant="h6" style={cardTitleStyles}>
                     {card.Title}
                   </Typography>
-                  <Typography variant="body2" style={cardTextStyles}>
-                    {card.Type}
-                  </Typography>
                   <div
                     style={{
                       display: "flex",
@@ -122,9 +128,23 @@ function Squarecard() {
                       alignItems: "center",
                     }}
                   >
-                    <img src={card.IconURL} alt="Icon 1" style={iconStyles} />
-                    <img src={card.IconURL1} alt="Icon 2" style={iconStyles} />
-                    {index !== 1 && index !== 2 && (
+                    <img
+                      src={card.IconURL}
+                      alt="Icon 1"
+                      style={iconStyles}
+                      // Do not add onClick handler for IconURL
+                    />
+                    <img
+                      src={card.IconURL1}
+                      alt="Icon 2"
+                      style={iconStyles}
+                      onClick={() => navigate(card.PageURL)} // Add this line for IconURL1
+                    />
+                    {(card.Title.startsWith("Patent-") ||
+                      card.Title.startsWith("Patent-1") ||
+                      card.Title.startsWith("Patent-2") ||
+                      card.Title.startsWith("Patent-3") ||
+                      card.Title.startsWith("Patent-4")) && (
                       <Button
                         component={Link}
                         to={card.AboutURL}

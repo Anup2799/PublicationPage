@@ -1,19 +1,5 @@
 [
-  {
-    "ID": "P14112023",
-    "Title": "Patent-1",
-    "Type": "Patent or Whitepaper or Researchpaper or Blog",
-    "ImageURL": "/images/p1.png",
-    "IconURL": "/images/i1.png",
-    "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/patents",
-    "Brief": "<some brief info - will not be used for now>",
-    "Authors": "<list of comma-separated names of people>",
-    "url": "link to artifact, if available",
-    "tags": "not used for now",
-    "last update": "last update date",
-    "Hideltem": "true"
-  },
+  
   {
     "ID": "13112023",
     "Title": "Blog-1",
@@ -36,7 +22,7 @@
     "ImageURL": "/images/w1.png",
     "IconURL": "/images/i1.png",
     "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/whitepapers",
+    "PageURL": "/pages/patents",
     "Brief": "<some brief info - will not be used for now",
     "Authors": "<list of comma-separated names of people",
     "url": "link to artifact, if available",
@@ -51,7 +37,7 @@
     "ImageURL": "/images/b2.png",
     "IconURL": "/images/i1.png",
     "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/whitepapers",
+    "PageURL": "/pages/patents",
     "Brief": "<some brief info - will not be used for now>",
     "Authors": "<list of comma-separated names of people>",
     "url": "link to artifact, if available",
@@ -59,21 +45,7 @@
     "last update": "last update date",
     "Hideltem": "true"
   },
-  {
-    "ID": "P13112023",
-    "Title": "Patent-2",
-    "Type": "Patent or Whitepaper or Researchpaper or Blog",
-    "ImageURL": "/images/p2.png",
-    "IconURL": "/images/i1.png",
-    "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/patents",
-    "Brief": "some brief info - will not be used for now",
-    "Authors": "list of comma-separated names of people",
-    "url": "link to artifact, if available",
-    "tags": "not used for now",
-    "last update": "last update date",
-    "Hideltem": "true"
-  },
+  
   {
     "ID": "12112023",
     "Title": "Whitepaper-2",
@@ -81,7 +53,7 @@
     "ImageURL": "/images/w2.png",
     "IconURL": "/images/i1.png",
     "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/whitepapers",
+    "PageURL": "/pages/patents",
     "Brief": "<some brief info - will not be used for now",
     "Authors": "<list of comma-separated names of people",
     "url": "link to artifact, if available",
@@ -91,12 +63,12 @@
   },
   {
     "ID": "14112023",
-    "Title": "Whitepaper-3",
+    "Title": "Blog-3",
     "Type": "Patent or Whitepaper or Researchpaper or Blog",
     "ImageURL": "/images/w3.png",
     "IconURL": "/images/i1.png",
     "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/whitepapers",
+    "PageURL": "/pages/patents",
     "Brief": "<some brief info - will not be used for now>",
     "Authors": "<list of comma-separated names of people>",
     "url": "link to artifact, if available",
@@ -106,7 +78,7 @@
   },
   {
     "ID": "13112023",
-    "Title": "Blog-3",
+    "Title": "Whitepaper-3",
     "Type": "Patent or Whitepaper or Researchpaper or Blog",
     "ImageURL": "/images/b3.png",
     "IconURL": "/images/i1.png",
@@ -119,21 +91,7 @@
     "last update": "last update date",
     "Hideltem": "true"
   },
-  {
-    "ID": "P12112023",
-    "Title": "Patent-3",
-    "Type": "Patent or Whitepaper or Researchpaper or Blog",
-    "ImageURL": "/images/p3.png",
-    "IconURL": "/images/i1.png",
-    "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/patents",
-    "Brief": "<some brief info - will not be used for now",
-    "Authors": "<list of comma-separated names of people",
-    "url": "link to artifact, if available",
-    "tags": "not used for now",
-    "last update": "last update date",
-    "Hideltem": "true"
-  },
+  
   {
     "ID": "14112023",
     "Title": "Blog-4",
@@ -141,7 +99,7 @@
     "ImageURL": "/images/b4.png",
     "IconURL": "/images/i1.png",
     "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/whitepapers",
+    "PageURL": "/pages/patents",
     "Brief": "<some brief info - will not be used for now>",
     "Authors": "<list of comma-separated names of people>",
     "url": "link to artifact, if available",
@@ -159,21 +117,6 @@
     "PageURL": "/pages/whitepapers",
     "Brief": "some brief info - will not be used for now",
     "Authors": "list of comma-separated names of people",
-    "url": "link to artifact, if available",
-    "tags": "not used for now",
-    "last update": "last update date",
-    "Hideltem": "true"
-  },
-  {
-    "ID": "P11112023",
-    "Title": "Patent-4",
-    "Type": "Patent or Whitepaper or Researchpaper or Blog",
-    "ImageURL": "/images/p4.png",
-    "IconURL": "/images/i1.png",
-    "IconURL1": "/images/i2.png",
-    "PageURL": "/pages/patents",
-    "Brief": "<some brief info - will not be used for now",
-    "Authors": "<list of comma-separated names of people",
     "url": "link to artifact, if available",
     "tags": "not used for now",
     "last update": "last update date",

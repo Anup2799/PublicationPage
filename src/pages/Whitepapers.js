@@ -1,133 +1,144 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Grid, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import Footer from "../components/Layout/Footer";
 import Layout from "../components/Layout/Layout";
 
-function Squarecard() {
+// eslint-disable-next-line
+import { Link } from "react-router-dom";
+
+function Whitepapers() {
+  const navigate = useNavigate();
   const [cardsData, setCardsData] = useState([]);
+  const [nonPatentCount, setNonPatentCount] = useState(0);
 
   useEffect(() => {
-    fetch("/data/blogs_wp.json")
+    fetch("/data/Publication.json") // Change the file path to your actual file path
       .then((response) => response.json())
-      .then((data) => setCardsData(data))
+      .then((data) => {
+        // Filter out cards that don't start with "P"
+        const nonPatentCards = data.filter((card) => !card.ID.startsWith("P"));
+        setCardsData(nonPatentCards);
+        setNonPatentCount(nonPatentCards.length);
+      })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const pageStyles = {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-  };
-
-  const headerStyles = {
-    padding: "20px",
-    textAlign: "center",
-    color: "black",
-    fontSize: "24px", // Increased font size for the title
-    marginBottom: "20px", // Added bottom margin for spacing
-  };
-
-  const cardContainerStyles = {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    maxWidth: "1200px",
-    width: "100%",
-    margin: "0 auto",
-  };
-
-  const customCardStyles = {
-    width: "260px",
-    height: "auto",
+  const cardStyles = {
     borderRadius: "10px",
-    padding: "20px",
-    margin: "10px",
-    textAlign: "center",
+    overflow: "hidden",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     border: "1px solid #ccc",
     transition: "transform 0.2s",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    cursor: "pointer",
   };
 
   const cardImageStyles = {
     width: "100%",
+    height: "100%",
     objectFit: "cover",
-    borderRadius: "8px", // Added border radius for a smoother image corner
-    marginBottom: "10px", // Added bottom margin for spacing
   };
 
   const cardTitleStyles = {
-    fontSize: "18px",
+    fontSize: "25px",
     fontWeight: "bold",
     margin: "10px 0",
     textAlign: "center",
+    color: "#000",
   };
 
-  const cardTextStyles = {
-    fontSize: "16px",
-    fontFamily: "Arial, sans-serif",
-    color: "#333",
-    margin: "10px 0",
-    textAlign: "left",
+  const headingStyles = {
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#000",
+    marginTop: "20px",
   };
 
-  const cardActionsStyles = {
+  const iconStyles = {
+    width: "40px",
+    height: "40px",
+    cursor: "pointer",
+  };
+
+  const gridContainerStyles = {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "20px",
     display: "flex",
     justifyContent: "center",
-    marginTop: "10px",
   };
 
-  const learnMoreLinkStyles = {
-    textDecoration: "underline",
-    color: "#007bff",
+  const cardContainerStyles = {
+    minHeight: "400px",
   };
 
-  const footerStyles = {
-    marginTop: "20px",
+  const getCardColor = (title) => {
+    if (title.startsWith("Whitepaper-")) {
+      return { backgroundColor: "#7986cb" };
+    } else if (title.startsWith("Blog-")) {
+      return { backgroundColor: "#ef9a9a" };
+    }
+    // Default color if the title doesn't match the specified cases
+    return {};
   };
 
   return (
     <Layout>
-      <div style={pageStyles}>
-        <header style={headerStyles}>
-          <h4>Whitepapers</h4>
-        </header>
-        <div style={cardContainerStyles}>
+      <div style={{ minHeight: "100vh", padding: "0 20px" }}>
+        <Typography variant="h2" style={headingStyles}>
+          Whitepaper & Blog ({nonPatentCount})
+        </Typography>
+        <Grid container spacing={3} style={gridContainerStyles}>
           {cardsData.map((card, index) => (
-            <div
-              key={index}
-              style={customCardStyles}
-              onMouseEnter={() => {
-                document.querySelector(`#card-${index}`).style.transform = "scale(1.05)";
-              }}
-              onMouseLeave={() => {
-                document.querySelector(`#card-${index}`).style.transform = "scale(1)";
-              }}
-              id={`card-${index}`}
-            >
-              <img src={card.ImageURL} alt={card.title} style={cardImageStyles} />
-              <div>
-                <div style={cardTitleStyles}>{card.title}</div>
-                <div style={cardTextStyles}>{card.text}</div>
-              </div>
-              <div style={cardActionsStyles}>
-                <a
-                  href={card.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={learnMoreLinkStyles}
-                >
-                  Learn More
-                </a>
-              </div>
-            </div>
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                style={{
+                  ...cardStyles,
+                  ...cardContainerStyles,
+                  ...getCardColor(card.Title),
+                }}
+                onMouseEnter={() => {
+                  document.querySelector(`#card-${index}`).style.transform =
+                    "scale(1.05)";
+                }}
+                onMouseLeave={() => {
+                  document.querySelector(`#card-${index}`).style.transform =
+                    "scale(1)";
+                }}
+                id={`card-${index}`}
+                onClick={() => navigate(card.url)}
+              >
+                <CardMedia
+                  component="img"
+                  alt={card.Title}
+                  image={card.ImageURL}
+                  style={cardImageStyles}
+                />
+                <CardContent>
+                  <Typography variant="h6" style={cardTitleStyles}>
+                    {card.Title}
+                  </Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      marginTop: "20px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img src={card.IconURL} alt="Icon 1" style={iconStyles} />
+                    <img src={card.IconURL1} alt="Icon 2" style={iconStyles} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
           ))}
-        </div>
-        <Footer style={footerStyles} />
+        </Grid>
+        <Footer style={{ marginTop: "20px" }} />
       </div>
     </Layout>
   );
 }
 
-export default Squarecard;
+export default Whitepapers;
