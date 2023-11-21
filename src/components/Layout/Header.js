@@ -51,7 +51,7 @@ const Header = () => {
       <Divider />
       <ul className="mobile-navigation">
         <li>
-          <NavLink to="/Home">
+          <NavLink to="/pages/Patents">
             <strong>Home</strong>
           </NavLink>
         </li>
@@ -134,7 +134,7 @@ const Header = () => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ul className="navigation-menu">
               <li>
-                <NavLink to="/Home">
+                <NavLink to="/pages/Patents">
                   <strong>Home</strong>
                 </NavLink>
               </li>

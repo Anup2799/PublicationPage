@@ -15,17 +15,27 @@ import CardDetails from "../pages/CardDetails";
 function Squarecard() {
   const navigate = useNavigate();
   const [cardsData, setCardsData] = useState([]);
-  const [patentCount, setPatentCount] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
 
+  function convertToDateSortableFormat(dateString) {
+    if (!dateString) {
+      return null;
+    }
+    const [day, month, year] = dateString.split("-");
+    return new Date(`${year}-${month}-${day}`);
+  }
+
   useEffect(() => {
-    fetch("/data/Publication.json")
+    fetch("/data/Patent.json")
       .then((response) => response.json())
       .then((data) => {
-        const patentCards = data.filter((card) => card.ID.startsWith("P"));
-        setCardsData(patentCards);
-        setPatentCount(patentCards.length);
+        const sortedData = data.sort((a, b) => {
+          const dateA = convertToDateSortableFormat(a.Date);
+          const dateB = convertToDateSortableFormat(b.Date);
+          return dateB - dateA;
+        });
+        setCardsData(sortedData);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -50,12 +60,20 @@ function Squarecard() {
     <Layout>
       <div style={{ minHeight: "100vh", padding: "0 20px" }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8} style={{ padding: "20px" }}>
-            <Typography variant="h2" style={{ fontSize: "36px", fontWeight: "bold", textAlign: "left", marginTop: "20px" }}>
+          <Grid item xs={12} md={8} style={{ padding: "10px" }}>
+            <Typography
+              variant="h2"
+              style={{
+                fontSize: "30px",
+                fontWeight: "bold",
+                textAlign: "left",
+                marginTop: "20px",
+              }}
+            >
               Patent
             </Typography>
           </Grid>
-          <Grid item xs={12} md={4} style={{ padding: "20px" }}>
+          <Grid item xs={12} md={4} style={{ padding: "10px" }}>
             <input
               type="text"
               placeholder="Search by title"
@@ -73,11 +91,16 @@ function Squarecard() {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h5" style={{ fontSize: "18px", fontWeight: "bold", textAlign: "left" }}>
+            <Typography
+              variant="h5"
+              style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
               <span style={{ fontWeight: "normal" }}>Patent:</span>{" "}
-              <strong>{patentCount}</strong> |{" "}
-              <span style={{ fontWeight: "normal" }}>Total:</span>{" "}
-              <strong>{cardsData.length}</strong>
+              <strong>{filteredCards.length}</strong>
             </Typography>
           </Grid>
 
@@ -115,7 +138,15 @@ function Squarecard() {
                   }}
                 />
                 <CardContent>
-                  <Typography variant="h6" style={{ fontSize: "25px", fontWeight: "bold", margin: "10px 0", textAlign: "left" }}>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                      margin: "10px 0",
+                      textAlign: "left",
+                    }}
+                  >
                     {card.Title}
                   </Typography>
                   <div
@@ -129,34 +160,40 @@ function Squarecard() {
                     <img
                       src={card.IconURL}
                       alt="Icon 1"
-                      style={{ width: "40px", height: "40px", cursor: "pointer" }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        cursor: "pointer",
+                      }}
                       onClick={() => navigate(card.PageURL1)}
                     />
                     <img
                       src={card.IconURL1}
                       alt="Icon 2"
-                      style={{ width: "40px", height: "40px", cursor: "pointer" }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        cursor: "pointer",
+                      }}
                       onClick={() => handleIconClick(card)}
                     />
-                    {card.ID.startsWith("P") && (
-                      <Button
-                        component={Link}
-                        to={`/abouturl/${card.AboutURL}`}  
-                        style={{
-                          backgroundColor: "#000",
-                          color: "#fff",
-                          padding: "10px 15px",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                          textDecoration: "none",
-                          display: "inline-block",
-                          marginLeft: "10px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        About
-                      </Button>
-                    )}
+                    <Button
+                      component={Link}
+                      to={`/abouturl/${card.AboutURL}`}
+                      style={{
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        padding: "10px 15px",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        textDecoration: "none",
+                        display: "inline-block",
+                        marginLeft: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      About
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

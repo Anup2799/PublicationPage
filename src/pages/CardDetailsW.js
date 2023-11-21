@@ -1,4 +1,4 @@
-// CardDetails.js
+// CardDetailsW.js
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardDetails = () => {
+const CardDetailsW = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { cardId } = useParams();
@@ -56,7 +56,7 @@ const CardDetails = () => {
 
   useEffect(() => {
     // Assuming `Publication.json` is in the public folder
-    fetch(`/data/Patent.json`)
+    fetch(`/data/Whitepaper.json`)
       .then((response) => response.json())
       .then((data) => {
         // Find the card with the matching ID
@@ -88,7 +88,7 @@ const CardDetails = () => {
 
   const handleClose = () => {
     // Navigate back to the "Patent" page
-    navigate("/pages/Patents");
+    navigate("/pages/whitepapers");
   };
 
   return (
@@ -144,4 +144,4 @@ const CardDetails = () => {
   );
 };
 
-export default CardDetails;
+export default CardDetailsW;

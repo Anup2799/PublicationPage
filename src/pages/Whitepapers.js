@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@material-ui/core";
 import Footer from "../components/Layout/Footer";
 import Layout from "../components/Layout/Layout";
-import CardDetails from "../pages/CardDetails";
+import CardDetailsW from "../pages/CardDetailsW";
 
 function Squarecard() {
   const navigate = useNavigate();
@@ -11,16 +17,37 @@ function Squarecard() {
   const [nonPatentCount, setNonPatentCount] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Function to convert date string to a sortable format
+  function convertToDateSortableFormat(dateString) {
+    if (!dateString) {
+      return null;
+    }
+    const [day, month, year] = dateString.split("-");
+    return new Date(`${year}-${month}-${day}`);
+  }
 
   useEffect(() => {
-    fetch("/data/Publication.json")
+    fetch("/data/Whitepaper.json")
       .then((response) => response.json())
       .then((data) => {
-        const nonPatentCards = data.filter((card) => !card.ID.startsWith("P"));
-        setCardsData(nonPatentCards);
-        setNonPatentCount(nonPatentCards.length);
+        // Sort the data based on the "Date" property in descending order
+        const sortedData = data.sort((a, b) => {
+          const dateA = convertToDateSortableFormat(a.Date);
+          const dateB = convertToDateSortableFormat(b.Date);
+          return dateB - dateA;
+        });
+
+        setCardsData(sortedData);
+        setNonPatentCount(sortedData.length);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError(error);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredCards = cardsData.filter((card) =>
@@ -36,26 +63,34 @@ function Squarecard() {
   };
 
   const handleIconClick = (card) => {
-    navigate(card.CardDetailsURL);
+    navigate(card.CardDetailsWURL);
   };
 
   return (
     <Layout>
       <div style={{ minHeight: "100vh", padding: "0 20px" }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8} style={{ padding: "20px" }}>
-            <Typography variant="h2" style={{ fontSize: "36px", fontWeight: "bold", textAlign: "left", marginTop: "20px" }}>
+          <Grid item xs={12} md={8} style={{ padding: "10px" }}>
+            <Typography
+              variant="h2"
+              style={{
+                fontSize: "30px",
+                fontWeight: "bold",
+                textAlign: "left",
+                marginTop: "20px",
+              }}
+            >
               Whitepaper & Blog
             </Typography>
           </Grid>
-          <Grid item xs={12} md={4} style={{ padding: "20px" }}>
+          <Grid item xs={12} md={4} style={{ padding: "10px" }}>
             <input
               type="text"
               placeholder="Search by title"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               style={{
-                marginTop: "20px",
+                marginTop: "10px",
                 padding: "15px",
                 width: "90%",
                 fontSize: "18px",
@@ -66,10 +101,15 @@ function Squarecard() {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h5" style={{ fontSize: "18px", fontWeight: "bold", textAlign: "left" }}>
+            <Typography
+              variant="h5"
+              style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
               <span style={{ fontWeight: "normal" }}>Whitepaper & Blog:</span>{" "}
-              <strong>{nonPatentCount}</strong> |{" "}
-              <span style={{ fontWeight: "normal" }}>Total:</span>{" "}
               <strong>{nonPatentCount}</strong>
             </Typography>
           </Grid>
@@ -108,7 +148,15 @@ function Squarecard() {
                   }}
                 />
                 <CardContent>
-                  <Typography variant="h6" style={{ fontSize: "25px", fontWeight: "bold", margin: "10px 0", textAlign: "left" }}>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                      margin: "10px 0",
+                      textAlign: "left",
+                    }}
+                  >
                     {card.Title}
                   </Typography>
                   <div
@@ -122,13 +170,21 @@ function Squarecard() {
                     <img
                       src={card.IconURL}
                       alt="Icon 1"
-                      style={{ width: "40px", height: "40px", cursor: "pointer" }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        cursor: "pointer",
+                      }}
                       onClick={() => navigate(card.PageURL1)}
                     />
                     <img
                       src={card.IconURL1}
                       alt="Icon 2"
-                      style={{ width: "40px", height: "40px", cursor: "pointer" }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        cursor: "pointer",
+                      }}
                       onClick={() => handleIconClick(card)}
                     />
                   </div>
@@ -138,11 +194,14 @@ function Squarecard() {
           ))}
 
           {selectedCard && (
-            <CardDetails
+            <CardDetailsW
               card={selectedCard}
               onClose={() => setSelectedCard(null)}
             />
           )}
+
+          {loading && <p>Loading...</p>}
+          {error && <p>Error fetching data. Please try again later.</p>}
         </Grid>
 
         <Footer style={{ marginTop: "20px" }} />

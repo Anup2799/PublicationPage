@@ -1,22 +1,24 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Publication from "./pages/Publication";
+
 import Patents from "./pages/Patents";
 import Whitepapers from "./pages/Whitepapers";
 import CardDetails from "./pages/CardDetails";
+import CardDetailsW from "./pages/CardDetailsW";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/Home" element={<Publication />} />
-        <Route path="/pages/whitepapers" element={<Whitepapers />} />
-        <Route path="/pages/patents" element={<Patents />} />
+        
+        <Route path="/pages/Whitepapers" element={<Whitepapers />} />
+        <Route path="/pages/Patents" element={<Patents />} />
         <Route path="/pages/CardDetails/:cardId" element={<CardDetails />} />
+        <Route path="/pages/CardDetailsW/:cardId" element={<CardDetailsW />} />
 
         {/* Default route */}
-        <Route index element={<Publication />} />
+        <Route index element={<Patents />} />
       </Routes>
     </Router>
   );
